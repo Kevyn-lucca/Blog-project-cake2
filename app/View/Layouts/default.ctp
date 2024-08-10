@@ -8,12 +8,12 @@
 <body>
 <header>
 <nav class="navbar justify-content-between bg-primary">
-  <div class="d-flex justify-content-between">
-    <a class="navbar-brand text-white" href="#">
+  <div class="">
+    <button onclick="HomePage()"  class="btn navbar-brand text-white" >
       <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
 	   Meu Blog
-	</a>
-	<button onclick="CallTypePage()">tipos</button>
+</button>
+	<button class="btn text-white" onclick="CallTypePage()">tipos</button>
   </div>
 </nav>
 </header>

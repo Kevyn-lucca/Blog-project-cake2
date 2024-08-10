@@ -1,5 +1,5 @@
 <div class="mb-4">
-    <button type="button" class="btn btn-primary" onclick="buscartypesAdd()">
+    <button type="button" class="btn btn-primary" onclick="buscarTypeAdd()">
         Add
     </button>
 </div>
@@ -20,7 +20,7 @@
       <td><?= $type['Type']['title']?></td>
       <td><?= $type['Type']['created']?></td>
       <td>         
-        <button class="btn btn-danger" onclick="CallDeleteType(<?= $type['Type']['id'] ?>)">
+        <button class="btn btn-danger" onclick="DeleteType(<?= $type['Type']['id'] ?>)">
             Delete
         </button>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" onclick="buscarTypesEdit(<?= $type['Type']['id'] ?>)">

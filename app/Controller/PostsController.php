@@ -67,6 +67,12 @@ class PostsController extends AppController
     public function edit($id = null)
     {
         $this->layout = 'ajax';
+
+        $this->loadModel('Type');
+        $types = $this->Type->find('all');
+
+        $this->set('types',$types);
+
         if (!$id) {
             throw new NotFoundException(__('Invalid post'));
         }

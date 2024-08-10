@@ -7,4 +7,5 @@ class Type extends AppModel {
             'foreignKey' => 'type_id'
         )
     );
+    
 }

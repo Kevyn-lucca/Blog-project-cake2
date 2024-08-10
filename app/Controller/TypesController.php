@@ -4,18 +4,6 @@ class TypesController extends AppController
     public $helpers = array('Html', 'Form', 'Flash');
     public $components = array('Flash');
 
-    public function index()
-    {
-        $this->layout = 'ajax';
-
-        $posts = $this->Post->find('all');
-
-        // echo "<pre>";
-        // print_r($posts);exit;
-
-        $this->set('posts', $posts);
-    }
-
     public function type()
     {
         $this->layout = 'ajax';
@@ -37,11 +25,11 @@ class TypesController extends AppController
         if (!$id) {
             throw new NotFoundException(__('Invalid post'));
         }
-        $post = $this->Post->findById($id);
-        if (!$post) {
+        $type = $this->Type->findById($id);
+        if (!$type) {
             throw new NotFoundException(__('Invalid post'));
         }
-        $this->set('post', $post);
+        $this->set('post', $type);
 
     }
 
@@ -54,10 +42,10 @@ class TypesController extends AppController
         $this->set('types', $types);
 
         if ($this->request->is('post')) {
-            $this->Post->create();
-            if ($this->Post->save($this->request->data)) {
+            $this->Type->create();
+            if ($this->Type->save($this->request->data)) {
                 $this->Flash->success(__('Your post has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+                return $this->redirect(array('action' => 'type'));
             }
             $this->Flash->error(__('Unable to add your post.'));
         }
@@ -66,39 +54,43 @@ class TypesController extends AppController
     public function edit($id = null)
     {
         $this->layout = 'ajax';
+        $this->loadModel('Type');
+        
         if (!$id) {
-            throw new NotFoundException(__('Invalid post'));
+            throw new NotFoundException(__('Invalid type'));
         }
-
-        $post = $this->Post->findById($id);
-        $this->set('posts', $post);
-        if (!$post) {
-            throw new NotFoundException(__('Invalid post'));
+    
+        $type = $this->Type->findById($id);
+        if (!$type) {
+            throw new NotFoundException(__('Type not found'));
         }
-
+        
+        $this->set('types', $type);
+    
         if ($this->request->is(array('post', 'put'))) {
-            $this->Post->id = $id;
-
-            if ($this->Post->save($this->request->data)) {
-                $this->Flash->success(__('Your post has been updated.'));
-                return $this->redirect(array('action' => 'index'));
+            $this->Type->id = $id;
+    
+            if ($this->Type->save($this->request->data)) {
+                $this->Flash->success(__('Your type has been updated.'));
+                return $this->redirect(array('action' => 'type'));
             }
-            $this->Flash->error(__('Unable to update your post.'));
+            $this->Flash->error(__('Unable to update your type.'));
         }
-
+    
         if (!$this->request->data) {
-            $this->request->data = $post;
+            $this->request->data = $type;
         }
     }
 
     public function delete($id)
     {
         $this->layout = 'ajax';
+        $this->loadModel('Type');
         if ($this->request->is('post,put,get')) {
             throw new MethodNotAllowedException();
         }
 
-        if ($this->Post->delete($id)) {
+        if ($this->Type->delete($id)) {
             $this->Flash->success(
                 __('The post with id: %s has been deleted.', h($id))
             );
@@ -108,6 +100,6 @@ class TypesController extends AppController
             );
         }
 
-        return $this->redirect(array('action' => 'index'));
+        return $this->redirect(array('action' => 'type'));
     }
 }

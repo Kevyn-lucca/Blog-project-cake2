@@ -14,12 +14,12 @@ function CallTypePage() {
 		url: "types/type",
 		success: (response) => {
 			$("#MainContent").html(response);
+			$("#PostContent").html("");
 		},
 	});
 }
 
 
-//coloca o before antes de dormir
 function buscarPostsAdd() {
 	$.ajax({
 		method: "GET",
@@ -31,15 +31,15 @@ function buscarPostsAdd() {
 	});
 }
 
-function CallDeletePost(id) {
-	$.ajax({
-		method: "GET",
-		url: "posts/delete/" + id,
-		success: (response) => {
-			$("#MainModalPost").modal("toggle");
-			$("#MainModalPostContent").html(response);
-		},
-	});
+function deletePost(id) {
+    $.ajax({
+        method: "DELETE",
+        url: "posts/delete/" + id,
+
+        success: () => {
+			HomePage();
+        },
+    })
 }
 
 function buscarPostsEdit(id) {
@@ -83,16 +83,7 @@ function editpost(id) {
 	});
 }
 
-function CallDeleteType(id) {
-	$.ajax({
-		method: "DELETE",
-		url: "types/deleteType/" + id,
 
-		success: () => {
-			HomePage();
-		},
-	});
-}
 function LoadPost(id) {
 	$.ajax({
 		method: "GET",
@@ -105,10 +96,10 @@ function LoadPost(id) {
 
 //types,jogar pra outra file
 
-function buscarPostsAdd() {
+function buscarTypeAdd() {
 	$.ajax({
 		method: "GET",
-		url: "posts/add/",
+		url: "types/add/",
 		success: (response) => {
 			$("#MainModalPost").modal("toggle");
 			$("#MainModalPostContent").html(response);
@@ -128,5 +119,45 @@ function buscarTypesEdit(id) {
 	});
 }
 
+function DeleteType(id) {
+	$.ajax({
+		method: "DELETE",
+		url: "types/delete/" + id,
+
+		success: () => {
+			CallTypePage();
+		},
+	});
+}
+
+function addType() {
+	let formdata = $("#TypeAdForm").serialize();
+
+	$.ajax({
+		method: "POST",
+		url: "types/add/",
+		data: formdata,
+
+		success: () => {
+			$("#MainModalPost").modal("toggle");
+			CallTypePage();
+		},
+	});
+}
+
+
+function editType(id) {
+	let formdata = $("#formTypeEdit").serialize();
+	$.ajax({
+		method: "POST",
+		url: "types/edit/" + id,
+		data: formdata,
+
+		success: () => {
+			$("#MainModalPost").modal("toggle");
+			CallTypePage();
+		},
+	});
+}
 
 HomePage();

@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class= "mb-3">
-        <select name="type_id" id="type_id" class="form-select" aria-label="Default select example">
+    <select name="data[Post][type_id]" id="data[Post][type_id]" class="form-select" aria-label="Default select example">
             <option selected>Escolha um tipo</option>
             <?php foreach ($types as $type): ?>
             <option value="<?=$type['Type']['id']?>"><?= $type['Type']['title']?></option>
